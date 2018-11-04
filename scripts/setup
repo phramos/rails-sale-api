@@ -1,0 +1,3 @@
+#!/bin/bash
+docker-compose build --build-arg uid=$EUID
+docker-compose run --rm api bin/setup
