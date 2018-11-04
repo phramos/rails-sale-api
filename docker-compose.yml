@@ -1,0 +1,23 @@
+version: '3.6'
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    command:
+      - chown -R - 1001:1001 ./data
+  api:
+    build:
+      context: .
+      args:
+        app_path: /sales-api
+    container_name: sales-api
+    image: sales-api
+    environment:
+      - RAILS_ENV=development
+    volumes:
+      - .:/sales-api
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
