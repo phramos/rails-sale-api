@@ -4,14 +4,13 @@ services:
     image: postgres
     volumes:
       - ./data/db:/var/lib/postgresql/data
-    command:
-      - chown -R - 1001:1001 ./data
   api:
     build:
       context: .
       args:
         app_path: /sales-api
     container_name: sales-api
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
     image: sales-api
     environment:
       - RAILS_ENV=development
